@@ -14,20 +14,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct GhostRunnerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
-    @State private var isLoggedIn: Bool = false //משתנה האם הלקוח מחובר
+    @State private var isLoggedIn: Bool = false
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if isLoggedIn {
-                    MainTabView()               //במידה והלקוח מחובר להראות לו את מסך הניווט והבית
-                } else {
-                    LoginView()                 //במידה ואינו מחובר להראות לו את מסך ההתחברות
-                }
+                if isLoggedIn { MainTabView() }
+                else          { LoginView() }
             }
             .onAppear {
-                isLoggedIn = Auth.auth().currentUser != nil
+                Auth.auth().addStateDidChangeListener { _, user in
+                    DispatchQueue.main.async {
+                        isLoggedIn = user != nil
+                    }
+                }
             }
         }
     }

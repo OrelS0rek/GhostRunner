@@ -4,6 +4,7 @@
 import SwiftUI
 import PhotosUI
 import FirebaseFirestore
+import FirebaseAuth
 
 struct ProfileView: View {
     @ObservedObject private var userManager = UserManager.shared
@@ -117,9 +118,21 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: logOut) {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
         }
     }
-
+    
+    func logOut() {
+        try? Auth.auth().signOut()
+    }
+    
     // MARK: - Upload profile photo
     func uploadNewProfilePhoto(item: PhotosPickerItem?) {
         guard let item = item else { return }
