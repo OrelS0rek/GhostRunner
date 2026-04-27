@@ -6,13 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		840631612F756AC400B366D0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 840631602F756AC400B366D0 /* FirebaseStorage */; };
+		840631622F756CE300B366D0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406314B2F753EE000B366D0 /* CoreLocation.framework */; };
+		840631652F756CE600B366D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840631492F753ECA00B366D0 /* MapKit.framework */; };
+		84A2347E2F39E822002CBE39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84A2347D2F39E822002CBE39 /* FirebaseAuth */; };
+		84A234802F39E822002CBE39 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 84A2347F2F39E822002CBE39 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		840631492F753ECA00B366D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8406314B2F753EE000B366D0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84A234672F39E33A002CBE39 /* GhostRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		84A2347B2F39E555002CBE39 /* Exceptions for "GhostRunner" folder in "GhostRunner" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Info.plist,
+			);
+			target = 84A234662F39E33A002CBE39 /* GhostRunner */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		84A234692F39E33A002CBE39 /* GhostRunner */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				84A2347B2F39E555002CBE39 /* Exceptions for "GhostRunner" folder in "GhostRunner" target */,
+			);
 			path = GhostRunner;
 			sourceTree = "<group>";
 		};
@@ -23,16 +46,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A2347E2F39E822002CBE39 /* FirebaseAuth in Frameworks */,
+				840631622F756CE300B366D0 /* CoreLocation.framework in Frameworks */,
+				840631652F756CE600B366D0 /* MapKit.framework in Frameworks */,
+				840631612F756AC400B366D0 /* FirebaseStorage in Frameworks */,
+				84A234802F39E822002CBE39 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840631482F753EC900B366D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8406314B2F753EE000B366D0 /* CoreLocation.framework */,
+				840631492F753ECA00B366D0 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		84A2345E2F39E339002CBE39 = {
 			isa = PBXGroup;
 			children = (
 				84A234692F39E33A002CBE39 /* GhostRunner */,
+				840631482F753EC900B366D0 /* Frameworks */,
 				84A234682F39E33A002CBE39 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +103,9 @@
 			);
 			name = GhostRunner;
 			packageProductDependencies = (
+				84A2347D2F39E822002CBE39 /* FirebaseAuth */,
+				84A2347F2F39E822002CBE39 /* FirebaseFirestore */,
+				840631602F756AC400B366D0 /* FirebaseStorage */,
 			);
 			productName = GhostRunner;
 			productReference = 84A234672F39E33A002CBE39 /* GhostRunner.app */;
@@ -82,6 +123,7 @@
 				TargetAttributes = {
 					84A234662F39E33A002CBE39 = {
 						CreatedOnToolsVersion = 26.2;
+						LastSwiftMigration = 2620;
 					};
 				};
 			};
@@ -94,6 +136,9 @@
 			);
 			mainGroup = 84A2345E2F39E339002CBE39;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				84A2347C2F39E822002CBE39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 84A234682F39E33A002CBE39 /* Products */;
 			projectDirPath = "";
@@ -249,10 +294,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZMT73HHHF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GhostRunner/App/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GhostRunner needs your location to track your run";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -263,12 +313,15 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.OrelS0rek.GhostRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "GhostRunner/Supporting Files/GhostRunner-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -280,10 +333,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZMT73HHHF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GhostRunner/App/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GhostRunner needs your location to track your run";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -294,12 +352,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.OrelS0rek.GhostRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "GhostRunner/Supporting Files/GhostRunner-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -328,6 +388,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84A2347C2F39E822002CBE39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		840631602F756AC400B366D0 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84A2347C2F39E822002CBE39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		84A2347D2F39E822002CBE39 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84A2347C2F39E822002CBE39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		84A2347F2F39E822002CBE39 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84A2347C2F39E822002CBE39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 84A2345F2F39E339002CBE39 /* Project object */;
 }
