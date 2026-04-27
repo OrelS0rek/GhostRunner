@@ -108,10 +108,10 @@ struct LoginView: View {
         isLoading = true
 
         AuthManager.shared().login(withEmail: email, password: password) { success, error in
-            DispatchQueue.main.async {  // ← always update UI on main thread
+            DispatchQueue.main.async {  // מעדכן את הממשק משתמש בתהליכון הראשי
                 isLoading = false
                 if success {
-                    isLoggedIn = true  // ← triggers the fullScreenCover
+                    isLoggedIn = true  
                 } else {
                     errorMessage = error ?? "Login failed"
                 }

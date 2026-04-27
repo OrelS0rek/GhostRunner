@@ -10,6 +10,7 @@
 		840631612F756AC400B366D0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 840631602F756AC400B366D0 /* FirebaseStorage */; };
 		840631622F756CE300B366D0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406314B2F753EE000B366D0 /* CoreLocation.framework */; };
 		840631652F756CE600B366D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840631492F753ECA00B366D0 /* MapKit.framework */; };
+		846B3E212F9F5FD6003491FE /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 846B3E202F9F5FD0003491FE /* .gitignore */; };
 		84A2347E2F39E822002CBE39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84A2347D2F39E822002CBE39 /* FirebaseAuth */; };
 		84A234802F39E822002CBE39 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 84A2347F2F39E822002CBE39 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
@@ -17,6 +18,7 @@
 /* Begin PBXFileReference section */
 		840631492F753ECA00B366D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8406314B2F753EE000B366D0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		846B3E202F9F5FD0003491FE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		84A234672F39E33A002CBE39 /* GhostRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 		84A2345E2F39E339002CBE39 = {
 			isa = PBXGroup;
 			children = (
+				846B3E202F9F5FD0003491FE /* .gitignore */,
 				84A234692F39E33A002CBE39 /* GhostRunner */,
 				840631482F753EC900B366D0 /* Frameworks */,
 				84A234682F39E33A002CBE39 /* Products */,
@@ -154,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846B3E212F9F5FD6003491FE /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

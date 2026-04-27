@@ -11,7 +11,7 @@ struct GhostPickerView: View {
     @ObservedObject private var runStore      = RunStore.shared
     @Environment(\.dismiss) var dismiss
 
-    // Convert my RunPost runs into FeedRun so the picker can use them uniformly
+    // הפיכת הריצות שהיו במבנה פוסט למבנה פיד כדי שהמסך יוכל להציג אותם בצורה שנרצה
     private var myRunsAsFeed: [FeedRun] {
         runStore.myRuns.compactMap { run in
             FeedRun(from: [
@@ -28,11 +28,13 @@ struct GhostPickerView: View {
         }
     }
 
+    //פיד של כל הריצות שיהיה ניתן להציג במסך הבחירת ריצה
     private var allRuns: [FeedRun] {
         (myRunsAsFeed + friendManager.friendsFeed)
             .sorted { $0.timestamp > $1.timestamp }
     }
-
+    
+    //עריכת ממשק משתמש
     var body: some View {
         NavigationStack {
             Group {
@@ -41,9 +43,9 @@ struct GhostPickerView: View {
                         Image(systemName: "figure.run.circle")
                             .font(.largeTitle)
                             .foregroundColor(.secondary)
-                        Text("No runs to race against yet")
+                        Text("אין עדיין ריצה להתחרות מולה")
                             .foregroundColor(.secondary)
-                        Text("Complete a run first, or add friends who have posted runs")
+                        Text("תבצע ריצה ראשונה, או תוסיף חברים חדשים כדי שיהיה לך מול מי להתחרות!")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -52,18 +54,18 @@ struct GhostPickerView: View {
                     .padding()
                 } else {
                     List {
-                        // My runs section
+                        //איזור הריצות של המשתמש
                         if !myRunsAsFeed.isEmpty {
-                            Section("My Past Runs") {
+                            Section("הריצות הקודמות שלי") {
                                 ForEach(myRunsAsFeed) { run in
                                     ghostRow(run: run, label: "You")
                                 }
                             }
                         }
 
-                        // Friends' runs section
+                        // איזור הריצות של חברים
                         if !friendManager.friendsFeed.isEmpty {
-                            Section("Friends' Runs") {
+                            Section("ריצות של חברים") {
                                 ForEach(friendManager.friendsFeed) { run in
                                     let name = friendManager.friends
                                         .first { $0.id == run.userId }?.displayName ?? "Friend"
@@ -75,14 +77,14 @@ struct GhostPickerView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("Choose a Ghost")
+            .navigationTitle("בחירת רוח להתחרות מולה")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") { dismiss() }
+                    Button("ביטול") { dismiss() }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("No Ghost") {
+                    Button("ריצה רגילה") {
                         selectedRun = nil
                         dismiss()
                     }

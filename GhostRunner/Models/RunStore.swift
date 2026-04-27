@@ -32,13 +32,15 @@ class RunStore: ObservableObject {
     ) {
         guard let uid = Auth.auth().currentUser?.uid else { completion(false); return } //בדיקה האם המשתמש הנוכחי מחובר
         isUploading = true
-
+        
+        
+        //סימון ה? מגדיר ערך ברירת מחדל במקרה ויש משתנה שאין בו ערך
         let distanceKm     = runData["distanceKm"] as? Double ?? 0
         let durationSeconds = runData["durationSeconds"] as? Double ?? 0
         let avgPace        = runData["avgPaceSecPerKm"] as? Double ?? 0
         let route          = runData["route"] as? [[String: Double]] ?? []
 
-        // Upload photos first, then save the run document
+        // העלאת התמונות ואז שמירת מסמך הריצה
         uploadPhotos(photos, uid: uid) { photoURLs in
             let runDoc: [String: Any] = [
                 "userId":           uid,
@@ -52,7 +54,7 @@ class RunStore: ObservableObject {
                 "timestamp":        Timestamp(date: Date()),
                 "points":           self.calculatePoints(distanceKm: distanceKm)
             ]
-
+            //שמירת מסמך הריצה במסד הנתונים
             self.db.collection("runs").addDocument(data: runDoc) { error in
                 DispatchQueue.main.async {
                     self.isUploading = false
@@ -60,7 +62,7 @@ class RunStore: ObservableObject {
                         print("Error saving run: \(error.localizedDescription)")
                         completion(false)
                     } else {
-                        // Update user stats
+                        // עדכון סטטיסטיקות של המשתמש
                         UserManager.shared.incrementStats(distanceKm: distanceKm)
                         completion(true)
                     }
@@ -69,14 +71,14 @@ class RunStore: ObservableObject {
         }
     }
 
-    // MARK: - Fetch runs for current user
+    // MARK: - משיכת ריצות עבור המשתמש הנוכחי
     func fetchMyRuns() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }        //בדיקה שהמשתמש הנוכחי אכן מחובר
 
-        db.collection("runs")
+        db.collection("runs")                                               //העלאת כל הריצות של המשתמש הנוכחי
             .whereField("userId", isEqualTo: uid)
-            .order(by: "timestamp", descending: true)
-            .addSnapshotListener { snapshot, error in
+            .order(by: "timestamp", descending: true)                       //סידור לפי חתימות זמן
+            .addSnapshotListener { snapshot, error in                       //הוספת מאזין לשינויים
                 guard let docs = snapshot?.documents else { return }
                 DispatchQueue.main.async {
                     self.myRuns = docs.compactMap { RunPost(from: $0.data(), id: $0.documentID) }
@@ -84,9 +86,9 @@ class RunStore: ObservableObject {
             }
     }
 
-    // MARK: - Upload photos to Firebase Storage
+    // MARK: - העלאת תמונות ל firebase storage
     private func uploadPhotos(_ photos: [UIImage], uid: String, completion: @escaping ([String]) -> Void) {
-        guard !photos.isEmpty else { completion([]); return }
+        guard !photos.isEmpty else { completion([]); return }               //חזרה מהפונקצייה במידה שלא נבחרו תמונות
 
         var urls: [String] = []
         let group = DispatchGroup()
@@ -111,13 +113,13 @@ class RunStore: ObservableObject {
         group.notify(queue: .main) { completion(urls) }
     }
 
-    // MARK: - Points calculation (1 point per 100m)
+    // MARK: - חישוב נקודות
     private func calculatePoints(distanceKm: Double) -> Int {
-        return Int(distanceKm * 10)
+        return Int(distanceKm * 10)                         //נקודה עבור כל 100 מטר של מרחק
     }
 }
 
-// MARK: - RunPost model
+// MARK: - מודל פוסט של ריצה
 struct RunPost: Identifiable {
     let id: String
     let title: String
@@ -128,7 +130,8 @@ struct RunPost: Identifiable {
     let photoURLs: [String]
     let timestamp: Date
     let points: Int
-
+    
+    //ערכי ברירת מחדל
     init?(from data: [String: Any], id: String) {
         self.id              = id
         self.title           = data["title"] as? String ?? "Untitled Run"

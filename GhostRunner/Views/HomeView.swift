@@ -16,17 +16,17 @@ struct HomeView: View {
         NavigationStack {
             VStack(spacing: 0) {
 
-                // MARK: Search bar
+                // MARK: בר חיפוש
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.secondary)
-                    TextField("Search runners...", text: $searchQuery)
+                    TextField("חפש משתמשים...", text: $searchQuery)
                         .autocapitalization(.words)
                         .onChange(of: searchQuery) { _, query in
                             searchDebounce?.cancel()
                             searchDebounce = Task {
                                 try? await Task.sleep(nanoseconds: 400_000_000)
-                                FriendManager.shared.searchUsers(query: query)
+                                FriendManager.shared.searchUsers(query: query)      //חפש חברים בעזרת המתודה שכתבנו ב-FriendManager
                             }
                         }
                     if !searchQuery.isEmpty {
@@ -45,7 +45,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 8)
 
-                // MARK: Search results or feed
+                // MARK: תוצאות חיפוש או פיד
                 if !searchQuery.isEmpty {
                     searchResultsView
                 } else {
@@ -59,7 +59,7 @@ struct HomeView: View {
                         showingRequests = true
                     } label: {
                         ZStack(alignment: .topTrailing) {
-                            Image(systemName: "bell.fill")
+                            Image(systemName: "bell.fill")              //כפתור התראות בקשת חברות
                             if !friendManager.friendRequests.isEmpty {
                                 Circle()
                                     .fill(Color.red)
@@ -74,13 +74,13 @@ struct HomeView: View {
                 FriendRequestsView()
             }
             .onAppear {
-                FriendManager.shared.fetchFriends()
-                FriendManager.shared.fetchFriendRequests()
+                FriendManager.shared.fetchFriends()                     //משיכת חברים ממסד הנתונים בעזרת מתודות שכתבנו במנגר
+                FriendManager.shared.fetchFriendRequests()              //משיכת בקשות חברות ממסד הנתונים בעזרת מתודות שכתבנו במנגר
             }
         }
     }
 
-    // MARK: - Search results
+    // MARK: - תוצאות חיפוש
     @ViewBuilder
     var searchResultsView: some View {
         if friendManager.isSearching {
@@ -91,7 +91,7 @@ struct HomeView: View {
                 Image(systemName: "person.slash")
                     .font(.largeTitle)
                     .foregroundColor(.secondary)
-                Text("No runners found")
+                Text("לא נמצאו משתמשים")
                     .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -103,7 +103,7 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Friends feed
+    // MARK: - פיד של החברים
     @ViewBuilder
     var feedView: some View {
         if friendManager.friends.isEmpty {
@@ -111,10 +111,10 @@ struct HomeView: View {
                 Image(systemName: "person.2")
                     .font(.system(size: 50))
                     .foregroundColor(.orange)
-                Text("Find your running crew")
+                Text("מציאת פרטנרים לריצות")
                     .font(.title3)
                     .fontWeight(.semibold)
-                Text("Search for runners above to add friends.\nTheir runs will appear here.")
+                Text("חפש רצים אחרים למעלה כדי למצוא חברים.ֿֿ\nהריצות שלהם יופיעו פה.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -126,7 +126,7 @@ struct HomeView: View {
                 Image(systemName: "figure.run")
                     .font(.largeTitle)
                     .foregroundColor(.orange)
-                Text("No runs from friends yet")
+                Text("אין עדיין ריצות של חברים")
                     .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -135,7 +135,7 @@ struct HomeView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(friendManager.friendsFeed) { run in
                         NavigationLink(destination: RunDetailView(run: run.toRunPost())) {
-                            FeedRunCard(run: run)
+                            FeedRunCard(run: run)               //הצגת מידע על הריצה ברגע שלוחצים עליו
                         }
                         .buttonStyle(.plain)
                         .padding(.horizontal)
@@ -147,7 +147,7 @@ struct HomeView: View {
     }
 }
 
-// MARK: - User search row
+// MARK: - שורת חיפוש משתמש
 struct UserSearchRow: View {
     let user: UserProfile
     @State private var status: FriendshipStatus = .none
@@ -233,7 +233,7 @@ struct UserSearchRow: View {
     }
 }
 
-// MARK: - Friend requests sheet
+// MARK: - לוח בקשות חברות
 struct FriendRequestsView: View {
     @ObservedObject private var friendManager = FriendManager.shared
     @Environment(\.dismiss) var dismiss
@@ -307,7 +307,7 @@ struct FriendRequestsView: View {
     }
 }
 
-// MARK: - Feed run card
+// MARK: - פיד של ריצות
 struct FeedRunCard: View {
     let run: FeedRun
     @State private var authorName: String = ""

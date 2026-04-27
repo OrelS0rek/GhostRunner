@@ -22,3 +22,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+//עמוד דיפולטי עם יצירת פרוייקט ב xcode

@@ -22,7 +22,7 @@ struct UploadRunView: View {
     @State private var showSuccess = false
     @State private var errorMessage = ""
 
-    // Pull stats from runData
+    //לקיחת סטסיסטיקות מ runData
     private var distanceKm: Double     { runData["distanceKm"] as? Double ?? 0 }
     private var durationSeconds: Double { runData["durationSeconds"] as? Double ?? 0 }
     private var avgPace: Double         { runData["avgPaceSecPerKm"] as? Double ?? 0 }
@@ -32,7 +32,7 @@ struct UploadRunView: View {
             ScrollView {
                 VStack(spacing: 20) {
 
-                    // MARK: Stats summary card
+                    // MARK: כרטיס סיכום סטטיסטיקה
                     HStack(spacing: 0) {
                         statCell(label: "KM",   value: String(format: "%.2f", distanceKm))
                         Divider().frame(height: 50)
@@ -45,7 +45,7 @@ struct UploadRunView: View {
                     .cornerRadius(12)
                     .padding(.horizontal)
 
-                    // MARK: Title field
+                    // MARK: כותרת לריצה
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Title").font(.caption).foregroundColor(.secondary)
                         TextField("Morning run, evening jog...", text: $title)
@@ -53,7 +53,7 @@ struct UploadRunView: View {
                     }
                     .padding(.horizontal)
 
-                    // MARK: Notes field
+                    // MARK: תיאור הריצה
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Notes").font(.caption).foregroundColor(.secondary)
                         TextEditor(text: $notes)
@@ -62,7 +62,7 @@ struct UploadRunView: View {
                     }
                     .padding(.horizontal)
 
-                    // MARK: Photo picker
+                    // MARK: בחירת תמונות
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Photos").font(.caption).foregroundColor(.secondary)
 
@@ -79,7 +79,7 @@ struct UploadRunView: View {
                             loadImages(from: items)
                         }
 
-                        // Photo thumbnails
+                        // תמונה שמופיעה
                         if !selectedImages.isEmpty {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
@@ -91,7 +91,7 @@ struct UploadRunView: View {
                                                 .frame(width: 90, height: 90)
                                                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                                            // Remove button
+                                            // מחיקה
                                             Button {
                                                 selectedImages.remove(at: i)
                                                 selectedPhotos.remove(at: i)
@@ -110,7 +110,7 @@ struct UploadRunView: View {
                     }
                     .padding(.horizontal)
 
-                    // Error message
+                    // שגיאה
                     if !errorMessage.isEmpty {
                         Text(errorMessage)
                             .foregroundColor(.red)
@@ -118,7 +118,7 @@ struct UploadRunView: View {
                             .padding(.horizontal)
                     }
 
-                    // MARK: Post button
+                    // MARK: העלאת פוסט
                     Button(action: postRun) {
                         if runStore.isUploading {
                             ProgressView()
@@ -149,7 +149,7 @@ struct UploadRunView: View {
         }
     }
 
-    // MARK: - Actions
+    // MARK: - פעולות
 
     func postRun() {
         guard !title.isEmpty else { return }
@@ -183,7 +183,7 @@ struct UploadRunView: View {
         }
     }
 
-    // MARK: - Helpers
+    // MARK: - פונקציות עזר
     @ViewBuilder
     func statCell(label: String, value: String) -> some View {
         VStack(spacing: 2) {
@@ -195,6 +195,7 @@ struct UploadRunView: View {
     }
 
     func formatPace(_ secPerKm: Double) -> String {
+        // פורמט הריצה
         guard secPerKm > 0 else { return "--'--\"" }
         let m = Int(secPerKm) / 60
         let s = Int(secPerKm) % 60
@@ -202,6 +203,7 @@ struct UploadRunView: View {
     }
 
     func formatDuration(_ seconds: Double) -> String {
+        //פורמט של כמות הזמן שעבר (הדרך שזה יוצג על המסך)
         let total = Int(seconds)
         let h = total / 3600
         let m = (total % 3600) / 60
